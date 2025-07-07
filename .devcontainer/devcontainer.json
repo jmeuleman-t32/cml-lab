@@ -1,5 +1,5 @@
 {
-  "name": "My Dev Container",
+  "name": "CML Dev Container",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
@@ -9,7 +9,9 @@
   },
   "extensions": [
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "ms-python.python",
+    "ms-python.vscode-pylance"
   ],
   "postCreateCommand": "npm install",
   "remoteUser": "node"
