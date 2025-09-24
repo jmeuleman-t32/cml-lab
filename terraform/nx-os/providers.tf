@@ -13,7 +13,7 @@ provider "nxos" {
   # You can target many devices; each "device" block is a switch
   devices = {
     nx-leaf-3 = {
-      host = var.nx-leaf-3_ip
+      host = var.nxos_leaf_3_ip
       port = 443
       ssl  = true
     }
