@@ -1,3 +1,3 @@
-variable "nxos_username"    { type = string }
-variable "nxos_password"    { type = string }
-variable "nxos_leaf_3_ip"   { type = string }
+variable "nxos_un" {type = string}
+variable "nxos_pw" {type = string}
+variable "nxos_leaf3_ip" {type = string}

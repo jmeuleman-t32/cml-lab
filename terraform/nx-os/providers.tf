@@ -1,22 +1,23 @@
 terraform {
   required_providers {
     nxos = {
-      source  = "CiscoDevNet/nxos"
-      version = "~> 0.6" # or latest from the registry
+      source = "CiscoDevNet/nxos"
+      version = "0.5.10"
     }
   }
 }
 
 provider "nxos" {
-  username = var.nxos_username
-  password = var.nxos_password
+  username = var.nxos_un
+  password = var.nxos_pw
   # You can target many devices; each "device" block is a switch
-  devices = {
-    nx-leaf-3 = {
-      host = var.nxos_leaf_3_ip
+  devices = [ {
+    nxos_leaf3 = {
+      host = var.nxos_leaf3_ip
       port = 443
-      ssl  = true
+      ssl = true
     }
-  }
+  } ]
+  
   insecure = true # only if using self-signed certs; prefer real certs in prod
 }
