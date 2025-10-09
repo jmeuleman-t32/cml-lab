@@ -3,8 +3,8 @@
 - name: spine playbook
   hosts: spine
   vars_files:
-    - /host_vars/nx-spine-1.yml
-    - /host_vars/nx-spine-2.yml
+    - host_vars/nx-spine-1.yml
+    - host_vars/nx-spine-2.yml
     - roles/spine/vars/main.yml
   roles:
     - role: spine
@@ -12,8 +12,8 @@
 - name: leaf playbook
   hosts: leaf
   vars_files:
-    - /host_vars/nx-leaf-3.yml
-    - /host_vars/nx-leaf-4.yml
+    - host_vars/nx-leaf-3.yml
+    - host_vars/nx-leaf-4.yml
     - roles/leaf/vars/main.yml
   roles:
     - role: leaf
