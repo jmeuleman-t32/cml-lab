@@ -2,10 +2,16 @@
 
 - name: spine playbook
   hosts: spine
+  vars_files:
+    - /host_vars/*.yml
+    - /roles/spine/vars/main.yml
   roles:
     - role: spine
 
 - name: leaf playbook
   hosts: leaf
+  vars_files:
+    - /host_vars/*.yml
+    - /roles/leaf/vars/main.yml
   roles:
     - role: leaf
