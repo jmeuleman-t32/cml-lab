@@ -12,15 +12,13 @@
   loop: "{{ features }}"
 
 - name: CONFIGURE LOOPBACK INTERFACES
-  cisco.nxos.nxos_interface:
+  cisco.nxos.nxos_interfaces:
     config:
-      - name: "{{ item.loopbacks }}"
+      - name: "{{ item.interface }}"
         description: "{{ item.description }}"
         enabled: true
         ipv4:
           address: "{{ item.addr }}"
           mask: "{{ item.mask }}"
-    state: present
-  loop: "{{ loopbacks }}" 
+  loop: "{{ loopbacks }}"
 
-  
