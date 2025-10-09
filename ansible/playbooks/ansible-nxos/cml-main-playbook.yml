@@ -3,17 +3,17 @@
 - name: spine playbook
   hosts: spine
   vars_files:
-    - /host_vars/nxos-spine1.yml
-    - /host_vars/nxos-spine2.yml
-    - /roles/spine/vars/main.yml
+    - host_vars/nxos-spine1.yml
+    - host_vars/nxos-spine2.yml
+    - roles/spine/vars/main.yml
   roles:
     - role: spine
 
 - name: leaf playbook
   hosts: leaf
   vars_files:
-    - /host_vars/nxos-leaf1.yml
-    - /host_vars/nxos-leaf2.yml
-    - /roles/leaf/vars/main.yml
+    - host_vars/nxos-leaf1.yml
+    - host_vars/nxos-leaf2.yml
+    - roles/leaf/vars/main.yml
   roles:
     - role: leaf
