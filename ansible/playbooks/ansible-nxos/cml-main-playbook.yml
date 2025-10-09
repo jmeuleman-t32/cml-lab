@@ -1,4 +1,8 @@
 # main playbook for NX-OS
+- vars_files:
+    - vars/main.yml
+    - spine/vars/main.yml
+    - leaf/vars/main.yml
 
 - hosts: spine
   roles:
