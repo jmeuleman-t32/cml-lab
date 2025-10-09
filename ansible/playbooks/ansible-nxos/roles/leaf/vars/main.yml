@@ -1,2 +1,16 @@
 ---
 # vars file for leaf
+features:
+  - {features: bgp}
+  - {features: ospf}
+  - {features: lldp}
+
+# OSPF Variables
+ospf_process_id: UNDERLAY
+ospf_area: 0.0.0.0
+
+# BGP Variables
+asn: 65001
+address_family:
+  - {afi: l2vpn, safi: evpn}
+

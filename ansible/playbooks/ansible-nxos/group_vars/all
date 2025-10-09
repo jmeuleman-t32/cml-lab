@@ -1,0 +1,9 @@
+---
+
+ansible_connection: httpapi
+ansible_httpapi_use_ssl: yes
+ansible_httpapi_validate_certs: no
+ansible_network_os: nxos
+ansible_user: cisco
+ansible_httpapi_pass: cisco
+

@@ -1,0 +1,5 @@
+router_id: 100.64.60.2
+
+loopbacks:
+  - { interface: loopback0, addr: 100.64.60.2, mask: 32, description: "BGP loopback0 address" }
+  - { interface: loopback1, addr: 100.64.61.2, mask: 32, description: "VTEP VXLAN address" }
