@@ -4,9 +4,8 @@
 - name: ENABLE FEATURES ON SPINE
   cisco.nxos.feature:
     feature: "{{item.feature}}"
-    loop: "{{features}}"
+  loop: "{{features}}"
     
 - name: ENABLE FEATURES
   cisco.nxos.config:
     lines: "feature nv overlay"
-    

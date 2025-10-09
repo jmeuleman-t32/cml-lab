@@ -4,7 +4,7 @@
 - name: ENABLE FEATURES ON LEAF
   cisco.nxos.feature:
     feature: "{{item.feature}}"
-    loop: "{{features}}"
+  loop: "{{features}}"
     
 - name: ENABLE FEATURES
   cisco.nxos.config:
