@@ -1,0 +1,10 @@
+# main playbook for NX-OS
+
+- hosts: spine
+  roles:
+    - role: spine
+
+- hosts: leaf
+  roles:
+    - role: leaf
+    
