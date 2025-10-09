@@ -1,6 +1,13 @@
 ---
 # tasks file for spine
 
-- name: ENABLE FEATURES
+- name: ENABLE FEATURES GLOBAL
   cisco.nxos.config:
     lines: "feature nv overlay"
+
+- name: ENABLE FEATURES
+  cisco.nxos.nxos_feature:
+    feature: "{{item.features}}"
+    state: enabled
+  loop: "{{ features }}"
+
