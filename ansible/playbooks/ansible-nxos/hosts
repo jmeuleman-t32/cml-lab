@@ -1,7 +1,7 @@
 [spine]
-100.71.72.1
-100.71.72.2
+nx-spine-1 ansible_host=100.71.72.1
+nx-spine-2 ansible_host=100.71.72.2
 
 [leaf]
-100.71.72.3
-100.71.72.4
+nx-leaf-3 ansible_hosts=100.71.72.3
+nx-leaf-4 ansible_hosts=100.71.72.4
