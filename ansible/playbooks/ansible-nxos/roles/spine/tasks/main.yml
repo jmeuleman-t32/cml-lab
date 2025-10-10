@@ -7,7 +7,7 @@
 
 - name: ENABLE FEATURES
   cisco.nxos.nxos_feature:
-    feature: "{{ item.features: }}"
+    feature: "{{ item.features }}"
     state: enabled
   loop: "{{ features }}"
 
