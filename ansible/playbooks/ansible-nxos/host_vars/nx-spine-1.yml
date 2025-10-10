@@ -1,4 +1,5 @@
-#host specific variables for nx-spine-1
+---
+# host specific variables for nx-spine-1
 
 router_id: 100.64.60.1
 

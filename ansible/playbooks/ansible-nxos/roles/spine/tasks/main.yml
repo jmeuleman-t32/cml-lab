@@ -7,14 +7,14 @@
 
 - name: ENABLE FEATURES
   cisco.nxos.nxos_feature:
-    feature: "{{item.features}}"
+    feature: "{{ item.features: }}"
     state: enabled
   loop: "{{ features }}"
 
 - name: CONFIGURE LOOPBACK INTERFACES
   cisco.nxos.nxos_interfaces:
     config:
-      - name: "{{ item.loopbacks }}"
+      - name: "{{ item.loopbacks:interface }}"
         description: "{{ item.description }}"
         enabled: true
         ipv4:

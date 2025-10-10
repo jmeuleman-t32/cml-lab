@@ -1,4 +1,6 @@
+---
 # host specific variables for nx-leaf-3
+
 router_id: 100.64.60.3
 
 loopbacks:
