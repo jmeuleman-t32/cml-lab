@@ -14,7 +14,7 @@
 - name: CONFIGURE LOOPBACK INTERFACES
   cisco.nxos.nxos_interfaces:
     config:
-      - name: "{{ item.loopbacks}}"
+      - name: "{{ item.interface }}"
         description: "{{ item.description }}"
         enabled: true
         ipv4:
