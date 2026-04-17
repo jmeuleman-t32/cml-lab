@@ -1,0 +1,12 @@
+[nx-leaf-3]
+conf t
+!
+feature nxapi
+feature netconf
+!
+int mgmt 0
+ip address 100.71.72.3/24
+!
+vrf context management
+  ip route 0.0.0.0/0 100.71.72.254
+!
