@@ -15,10 +15,5 @@
   cisco.nxos.nxos_interfaces:
     config:
       - name: "{{ item.interface }}"
-        description: "{{ item.description }}"
         enabled: true
-        ipv4:
-          address: "{{ item.addr }}"
-          mask: "{{ item.mask }}"
   loop: "{{ loopbacks }}"
-
