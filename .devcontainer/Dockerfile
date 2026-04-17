@@ -10,3 +10,5 @@ RUN apt-get update \
 
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir ansible ansible-lint
+
+RUN ansible-galaxy collection install cisco.nxos ansible.netcommon
