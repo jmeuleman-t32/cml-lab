@@ -1,4 +1,4 @@
-hostname: nx-spine-2
+hostname: nx-leaf-4
 
 layer2:
 
@@ -8,4 +8,4 @@ networks_services:
 
 bgp_rid:
   asn: 65000
-  router_id: 2.2.2.2
+  router_id: 100.64.60.4

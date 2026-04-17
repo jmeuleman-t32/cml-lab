@@ -1,20 +1,17 @@
 features:
-  - ospf
-  - pim
-  - bgp
-  - nv overlay
-  - netconf
-  - restconf
+  - feature: ospf
+  - feature: pim
+  - feature: bgp
+  - feature: nv overlay
+  - feature: netconf
+  - feature: restconf
 
 bgp:
   asn: 65000
   neighbors:
-    - neighbor: 3.3.3.3
+    - neighbor: 100.64.60.3
       remote_as: 65000
       update_source: loopback0
-    - neighbor: 4.4.4.4
-      remote_as: 65000
-      update_source: loopback0
-    - neighbor: 5.5.5.5
+    - neighbor: 100.64.60.4
       remote_as: 65000
       update_source: loopback0

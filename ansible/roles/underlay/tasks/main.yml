@@ -1,4 +1,14 @@
 ---
+- name: Enable features on Nexus-OS
+  cisco.nxos.nxos_feature:
+    feature: "{{ item.feature }}"
+    state: enabled
+  loop: "{{ features }}"
+
+- name: Enable feature NV overlay based on EVPN
+  cisco.nxos.nxos_config:
+    lines: nv overlay evpn
+    save_when: modified
 
 - name: Configure BGP Process and Neighbors
   cisco.nxos.nxos_bgp_global:
@@ -14,7 +24,7 @@
 - name: Override all BGP AF configuration with provided configuration
   cisco.nxos.nxos_bgp_address_family:
     config:
-      as_number: "{{ bgp_rid.asn }}"
+      as_number: "{{ bgp.asn }}"
       address_family:
         - afi: l2vpn
           safi: evpn
