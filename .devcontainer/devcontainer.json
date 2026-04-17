@@ -1,18 +1,18 @@
 {
-  "name": "CML Dev Container",
+  "name": "Ansible Dev Container",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-  "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash"
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.ansible",
+        "redhat.vscode-yaml",
+        "ms-python.python"
+      ]
+    }
   },
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ms-python.python",
-    "ms-python.vscode-pylance"
-  ],
-  "postCreateCommand": "npm install",
-  "remoteUser": "node"
+  "remoteUser": "vscode",
+  "postCreateCommand": "ansible --version && ansible-lint --version"
 }

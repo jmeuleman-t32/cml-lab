@@ -1,15 +1,12 @@
-# Use the official Node.js LTS image
-FROM node:18
+FROM mcr.microsoft.com/devcontainers/python:3.11
 
-# Install any extra tools you need (example: git)
-RUN apt-get update && apt-get install -y git
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       openssh-client \
+       sshpass \
+       git \
+       curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create a working directory
-WORKDIR /workspace
-
-# Install project dependencies (optional)
-# COPY package*.json ./
-# RUN npm install
-
-# Default user (optional)
-# USER node
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir ansible ansible-lint
