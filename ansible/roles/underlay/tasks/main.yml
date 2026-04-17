@@ -1,4 +1,5 @@
 ---
+
 - name: Configure BGP Process and Neighbors
   cisco.nxos.nxos_bgp_global:
     config:
