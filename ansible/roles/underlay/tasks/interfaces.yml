@@ -16,3 +16,11 @@
           - address: "{{ item.address }}"
     state: merged
   loop: "{{ underlay_interfaces }}"
+
+- name: Configure Loopback addresses
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "Loopback0"
+        ipv4:
+          - address: "{{ bgp_rid.router_id }}/32"
+    state: merged

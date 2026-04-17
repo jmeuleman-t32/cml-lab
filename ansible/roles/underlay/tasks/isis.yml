@@ -1,1 +1,20 @@
 ---
+- name: Configure global IS-IS process
+  cisco.nxos.nxos_config:
+    lines:
+      - "router isis {{ isis.process }}"
+      - "net {{ isis.net }}"
+      - "is-type level-2"
+
+- name: Enable IS-IS on underlay interfaces
+  cisco.nxos.nxos_config:
+    parents: "interface {{ item.name }}"
+    lines:
+      - "ip router isis {{ isis.process }}"
+  loop: "{{ underlay_interfaces }}"
+
+- name: Enable IS-IS on Loopback0
+  cisco.nxos.nxos_config:
+    parents: "interface loopback0"
+    lines:
+      - "ip router isis {{ isis.process }}"
