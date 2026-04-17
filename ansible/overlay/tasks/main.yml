@@ -1,6 +1,4 @@
 ---
-# tasks file for overlay
----
 - name: Configure VLAN-to-VNI Mappings
   cisco.nxos.nxos_vlans:
     config:
@@ -167,3 +165,4 @@
     vrf: "{{ item.vrf_name }}"
     state: present
   loop: "{{ vrfs }}"
+---

@@ -1,6 +1,4 @@
 ---
-# tasks file for underlay
----
 - name: Configure BGP Process and Neighbors
   cisco.nxos.nxos_bgp_global:
     config:
@@ -43,3 +41,4 @@
       as_number: "{{ bgp_rid.asn }}"
       router_id: "{{ bgp_rid.router_id }}"
     state: merged
+---
