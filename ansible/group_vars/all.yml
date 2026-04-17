@@ -1,6 +1,8 @@
-ansible_connection: httpapi
-ansible_httpapi_use_ssl: yes
-ansible_httpapi_validate_certs: no
+ansible_connection: ansible.netcommon.httpapi
 ansible_network_os: cisco.nxos.nxos
 ansible_user: cisco
-ansible_httpapi_pass: cisco
+ansible_password: cisco
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+ansible_become: true
+ansible_become_method: enable
