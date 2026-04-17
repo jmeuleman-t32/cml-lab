@@ -1,0 +1,11 @@
+---
+- name: Enable features on Nexus-OS
+  cisco.nxos.nxos_feature:
+    feature: "{{ item.feature }}"
+    state: enabled
+  loop: "{{ features }}"
+
+- name: Enable feature NV overlay based on EVPN
+  cisco.nxos.nxos_config:
+    lines: nv overlay evpn
+    save_when: modified

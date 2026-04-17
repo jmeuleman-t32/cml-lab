@@ -1,0 +1,18 @@
+---
+- name: Ensure interfaces are Layer 3
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        mode: layer3
+        enabled: true
+    state: merged
+  loop: "{{ underlay_interfaces }}"
+
+- name: Configure L3 addresses
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        ipv4:
+          - address: "{{ item.address }}"
+    state: merged
+  loop: "{{ underlay_interfaces }}"

@@ -1,6 +1,10 @@
 hostname: nx-leaf-3
 
-layer2:
+underlay_interfaces:
+  - name: Ethernet1/1
+    address: 10.0.0.1/31
+  - name: Ethernet1/2
+    address: 10.0.0.5/31
 
 vrfs_services:
 

@@ -1,10 +1,10 @@
 features:
-  - feature: ospf
-  - feature: pim
-  - feature: bgp
-  - feature: nv overlay
-  - feature: netconf
-  - feature: restconf
+  - { feature: ospf }
+  - { feature: pim }
+  - { feature: bgp }
+  - { feature: nv overlay }
+  - { feature: netconf }
+  - { feature: restconf }
 
 bgp:
   asn: 65000
