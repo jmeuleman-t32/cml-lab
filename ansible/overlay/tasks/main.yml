@@ -165,4 +165,3 @@
     vrf: "{{ item.vrf_name }}"
     state: present
   loop: "{{ vrfs }}"
----

@@ -41,4 +41,3 @@
       as_number: "{{ bgp_rid.asn }}"
       router_id: "{{ bgp_rid.router_id }}"
     state: merged
----
