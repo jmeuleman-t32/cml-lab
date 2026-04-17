@@ -5,3 +5,4 @@ ansible_user: cisco
 ansible_password: cisco
 ansible_httpapi_use_ssl: true
 ansible_httpapi_validate_certs: false
+ansible_command_timeout: 120
