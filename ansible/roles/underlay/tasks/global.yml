@@ -1,0 +1,6 @@
+---
+- name: Configure global settings on Nexus-OS
+  cisco.nxos.nxos_hostname:
+    config:
+      hostname: "{{ hostname }}"
+    state: merged

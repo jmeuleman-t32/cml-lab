@@ -17,7 +17,3 @@ bgp:
     - neighbor: 100.64.60.2
       remote_as: 65000
       update_source: loopback0
-
-isis:
-  process: UNDERLAY
-  net: 49.0001.0000.0000.0001.00

@@ -1,4 +1,7 @@
 ---
+- name: Configure global settings on Nexus-OS
+  import_tasks: global.yml
+
 - name: Configure NX-OS Features
   import_tasks: features.yml
 

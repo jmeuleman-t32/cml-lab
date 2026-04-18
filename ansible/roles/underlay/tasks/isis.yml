@@ -5,12 +5,14 @@
       - "router isis {{ isis.process }}"
       - "net {{ isis.net }}"
       - "is-type level-2"
+    save_when: modified
 
 - name: Enable IS-IS on underlay interfaces
   cisco.nxos.nxos_config:
     parents: "interface {{ item.name }}"
     lines:
       - "ip router isis {{ isis.process }}"
+    save_when: modified
   loop: "{{ underlay_interfaces }}"
 
 - name: Enable IS-IS on Loopback0
@@ -18,3 +20,4 @@
     parents: "interface loopback0"
     lines:
       - "ip router isis {{ isis.process }}"
+    save_when: modified

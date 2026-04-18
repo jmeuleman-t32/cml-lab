@@ -13,3 +13,7 @@ networks_services:
 bgp_rid:
   asn: 65000
   router_id: 100.64.60.2
+
+isis:
+  process: UNDERLAY
+  net: 49.0001.0000.0000.0002.00
