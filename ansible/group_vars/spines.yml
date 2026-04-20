@@ -1,10 +1,10 @@
 features:
-  - { feature: isis }
-  - { feature: pim }
-  - { feature: bgp }
-  - { feature: nv overlay }
-  - { feature: netconf }
-  - { feature: restconf }
+  - isis
+  - pim
+  - bgp
+  - nv overlay
+  - netconf
+  - restconf
 
 bgp:
   asn: 65000

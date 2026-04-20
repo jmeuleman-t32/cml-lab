@@ -1,12 +1,12 @@
 features:
-  - { feature: isis }
-  - { feature: pim }
-  - { feature: bgp }
-  - { feature: nv overlay }
-  - { feature: vn-segment-vlan-based }
-  - { feature: interface-vlan }
-  - { feature: netconf }
-  - { feature: restconf }
+  - isis
+  - pim
+  - bgp
+  - nv overlay
+  - vn-segment-vlan-based
+  - interface-vlan
+  - netconf 
+  - restconf 
 
 bgp:
   asn: 65000

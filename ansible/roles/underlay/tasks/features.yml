@@ -1,7 +1,7 @@
 ---
 - name: Enable features on Nexus-OS
   cisco.nxos.nxos_feature:
-    feature: "{{ item.feature }}"
+    feature: "{{ item }}"
     state: enabled
   loop: "{{ features }}"
 
