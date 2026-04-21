@@ -1,0 +1,49 @@
+---
+- name: Configure PIM RP Address
+  cisco.nxos.nxos_pim_rp_address:
+    rp_address: 100.64.61.1
+    group_list: 239.255.255.0/24
+    state: present
+
+- name: Configure the Anycast RP address on the Spines
+  cisco.nxos.nxos_config:
+    lines:
+      - "ip pim anycast-rp {{ pim.rp_address }} {{ pim.rp_local }}"
+  when: "inventory_hostname in groups['spines']"
+
+- name: Configure Loopback1 address for PIM RP
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "Loopback1"
+        ipv4:
+          - address: "{{ pim.rp_address }}/32"
+    state: merged
+  when: "inventory_hostname in groups['spines']"
+
+- name: Enable IS-IS on Loopback1
+  cisco.nxos.nxos_config:
+    parents: "interface loopback1"
+    lines:
+      - "ip router isis {{ isis.process }}"
+    save_when: modified
+  when: "inventory_hostname in groups['spines']"
+
+- name: Enable PIM sparse-mode on L3 interfaces
+  cisco.nxos.nxos_pim_interface:
+    interface: "{{ item.name }}"
+    sparse: true
+    state: present
+  loop: "{{ underlay_interfaces }}"
+
+- name: Enable PIM sparse-mode on Loopback0 interface
+  cisco.nxos.nxos_pim_interface:
+    interface: "Loopback0"
+    sparse: true
+    state: present
+
+- name: Enable PIM sparse-mode on Loopback1 interface
+  cisco.nxos.nxos_pim_interface:
+    interface: "Loopback1"
+    sparse: true
+    state: present
+  when: "inventory_hostname in groups['spines']"

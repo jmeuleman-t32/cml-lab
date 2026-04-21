@@ -13,3 +13,8 @@ bgp_rid:
 isis:
   process: UNDERLAY
   net: 49.0001.0000.0000.0001.00
+
+pim:
+  rp_address: 100.64.61.1
+  rp_local: 100.64.60.1
+  rp_peer: 100.64.60.2

@@ -13,3 +13,6 @@
 
 - name: Configure BGP
   import_tasks: bgp.yml
+
+- name: Configure PIM
+  import_tasks: pim.yml

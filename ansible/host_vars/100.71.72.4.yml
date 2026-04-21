@@ -13,3 +13,6 @@ bgp_rid:
 isis:
   process: UNDERLAY
   net: 49.0001.0000.0000.0004.00
+
+bgp_services:
+  neighbor_as: 65012

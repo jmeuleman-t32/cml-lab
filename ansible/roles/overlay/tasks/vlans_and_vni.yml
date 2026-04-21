@@ -16,18 +16,6 @@
     state: present
   loop: "{{ L2VNI_services + L3VNI_services }}"
 
-- name: Configure BGP L3VNI VRFs
-  cisco.nxos.nxos_bgp_address_family:
-    config:
-      as_number: "{{ bgp.asn }}"
-      address_family:
-        - vrf: "{{ item.vrf_name }}"
-          afi: ipv4
-          safi: unicast
-          advertise_l2vpn_evpn: true
-    state: merged
-  loop: "{{ L2VNI_services + L3VNI_services }}"
-
 - name: Configure global Anycast MAC-address 
   cisco.nxos.nxos_overlay_global:
     anycast_gateway_mac: aaaa.aaaa.aaaa

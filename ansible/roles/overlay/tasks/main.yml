@@ -4,3 +4,6 @@
 
 - name: Configure overlay (services) interfaces
   import_tasks: overlay_interfaces.yml
+
+- name: Configure BGP per VRF AFI
+  import_tasks: bgp-services.yml

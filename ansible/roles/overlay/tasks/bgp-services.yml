@@ -1,0 +1,40 @@
+---
+- name: Configure BGP L3VNI VRFs
+  cisco.nxos.nxos_bgp_address_family:
+    config:
+      as_number: "{{ bgp.asn }}"
+      address_family:
+        - vrf: "{{ item.vrf_name }}"
+          afi: ipv4
+          safi: unicast
+          advertise_l2vpn_evpn: true
+    state: merged
+  loop: "{{ L2VNI_services + L3VNI_services }}"
+
+- name: Create BGP neighbor under VRF
+  cisco.nxos.nxos_bgp_global:
+    config:
+      as_number: "{{ bgp.asn }}"
+      vrfs:
+        - vrf: "{{ item.vrf_name }}"
+          neighbors:
+            - neighbor_address: "172.16.{{ item.vlan_id }}.2"
+              remote_as: "{{ bgp_services.neighbor_as }}"
+              update_source: "{{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+              description: "BGP neighbor to {{ bgp_services.neighbor_as }}"
+    state: merged
+  loop: "{{ L3VNI_services }}"
+
+- name: Activate IPv4 unicast AF for VRF Neighbor
+  cisco.nxos.nxos_bgp_neighbor_address_family:
+    config:
+      as_number: "{{ bgp.asn }}"
+      vrfs:
+        - vrf: "{{ item.vrf_name }}"
+          neighbors:
+            - neighbor_address: "172.16.{{ item.vlan_id }}.2"
+              address_family:
+                - afi: ipv4
+                  safi: unicast
+    state: merged
+  loop: "{{ L3VNI_services }}"

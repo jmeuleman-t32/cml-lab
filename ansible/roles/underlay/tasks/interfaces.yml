@@ -5,6 +5,7 @@
       - name: "{{ item.name }}"
         mode: layer3
         enabled: true
+        mtu: 9216
         description: "Underlay Interface with IS-IS" 
     state: merged
   loop: "{{ underlay_interfaces }}"
@@ -25,3 +26,4 @@
         ipv4:
           - address: "{{ bgp_rid.router_id }}/32"
     state: merged
+  
