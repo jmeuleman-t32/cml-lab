@@ -1,4 +1,4 @@
-[nx-spine-1]
+#nx-spine-1
 conf t
 !
 feature nxapi

@@ -6,7 +6,7 @@
         vlan_id: "{{ item.vlan_id }}"
         mapped_vni: "{{ item.vni_id }}"
     state: merged
-  loop: "{{ L2VNI_services + L3VNI_services }}"
+  loop: "{{ L2VNI_services}}"
 
 - name: Configure L3VNI VRF(s)
   cisco.nxos.nxos_vrf:
@@ -14,7 +14,7 @@
     vni: "{{ item.vni_id }}"
     rd: auto
     state: present
-  loop: "{{ L2VNI_services + L3VNI_services }}"
+  loop: "{{ L3VNI_services }}"
 
 - name: Configure global Anycast MAC-address 
   cisco.nxos.nxos_overlay_global:
@@ -38,23 +38,23 @@
         state: present
     route_target_both_auto_evpn: true
     state: present
-  loop: "{{ L2VNI_services + L3VNI_services }}" 
+  loop: "{{ L3VNI_services }}" 
 
-- name: Configure VXLAN VTEP NVE Interface L2VNI/L3VNI Mapping(s)
+- name: Configure VXLAN VTEP NVE Interface for L3VNI(s)
   cisco.nxos.nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
     assoc_vrf: true
     state: present
-  loop: "{{ L2VNI_services + L3VNI_services }}"
+  loop: "{{ L3VNI_services }}"
 
-- name: Configure VXLAN VTEP Multicast Groups for L2VNI(s)
+- name: Configure VXLAN VTEP NVE Interface for L2VNI(s)
   cisco.nxos.nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
     state: present
     multicast_group: "{{ item.mcast_grp }}"
-  loop: "{{ L2VNI_services + L3VNI_services }}"
+  loop: "{{ L2VNI_services }}"
 
 - name: Configure L2VNI Under EVPN
   cisco.nxos.nxos_evpn_vni:
