@@ -1,1 +1,6 @@
 ---
+- name: Configure Layer 2 (L2VNI) and Layer 3 (L3VNI) Services
+  import_tasks: vlans_and_vni.yml
+
+- name: Configure overlay (services) interfaces
+  import_tasks: overlay_interfaces.yml

@@ -1,8 +1,8 @@
 ---
 - name: Configure global IS-IS process
   cisco.nxos.nxos_config:
+    parents: "router isis {{ isis.process }}"
     lines:
-      - "router isis {{ isis.process }}"
       - "net {{ isis.net }}"
       - "is-type level-2"
     save_when: modified

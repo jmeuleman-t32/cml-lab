@@ -1,0 +1,43 @@
+---
+- name: Configure interface as routed port (L3VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "{{ L3VNI_interfaces[0].name }}"
+        mode: layer3
+        enabled: true
+        description: "L3VNI BGP Peerings to Cloud Routers" 
+    state: merged
+
+- name: Configure Dot1Q encap for subinterfaces (L3VNI Services)
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "{{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+        dot1q: "{{ item.vlan_id }}"
+    state: merged
+  loop: "{{ L3VNI_services }}"
+
+- name: Assign VRF forwarding for subinterfaces (L3VNI Services)
+  cisco.nxos.nxos_vrf_interfaces:
+    config:
+      - name: "{{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+        vrf_name: "{{ item.vrf_name }}"
+    state: merged
+  loop: "{{ L3VNI_services }}"
+
+- name: Assign IPv4 addresses for subinterfaces (L3VNI Services)
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "{{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+        ipv4:
+          - address: "{{ item.addr }}"
+            ip_network_mask: "{{ item.mask }}"
+    state: merged
+  loop: "{{ L3VNI_services }}"
+
+- name: Activate subinterfaces (L3VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "{{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+        enabled: true
+    state: merged
+  loop: "{{ L3VNI_services }}"

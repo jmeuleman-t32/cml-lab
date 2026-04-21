@@ -6,10 +6,6 @@ underlay_interfaces:
   - name: Ethernet1/2
     address: 10.0.0.6/31
 
-vrfs_services:
-
-networks_services:
-
 bgp_rid:
   asn: 65000
   router_id: 100.64.60.2
