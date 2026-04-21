@@ -8,6 +8,15 @@
         description: "L3VNI BGP Peerings to Cloud Routers" 
     state: merged
 
+- name: Configure interface as access port (L2VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "{{ L2VNI_interfaces[0].name }}"
+        mode: layer2
+        enabled: true
+        description: "L2VNI Access Port to Workload Mobility Router" 
+    state: merged
+
 - name: Configure Dot1Q encap for subinterfaces (L3VNI Services)
   cisco.nxos.nxos_l3_interfaces:
     config:
@@ -41,3 +50,47 @@
         enabled: true
     state: merged
   loop: "{{ L3VNI_services }}"
+
+- name: Configure L2 switchport as a trunk (L2VNI Services)
+  cisco.nxos.nxos_l2_interfaces:
+    config:
+      - name: "{{ L2VNI_interfaces[0].name }}"
+        mode: trunk
+        trunk:
+          allowed_vlans: "{{ item.vlan_id }}"
+          native_vlan: "999"
+    state: merged
+  loop: "{{ L2VNI_services }}"
+
+- name: Create SVI interfaces for VLANs (L2VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "vlan{{ item.vlan_id }}"
+        enabled: true
+    state: merged
+  loop: "{{ L2VNI_services }}"
+
+- name: Assign VRF forwarding for SVI (L2VNI Services)
+  cisco.nxos.nxos_vrf_interface:
+    interface: "vlan{{ item.vlan_id }}"
+    vrf: "{{ item.vrf_name }}"
+    state: present
+  loop: "{{ L2VNI_services }}"
+
+- name: Assign IPv4 addresses for SVI (L2VNI Services)
+  cisco.nxos.nxos_l3_interfaces:
+    config:
+      - name: "Vlan{{ item.vlan_id }}"
+        ipv4:
+          - address: "{{ item.addr }}"
+            ip_network_mask: "{{ item.mask }}"
+    state: merged
+  loop: "{{ L2VNI_services }}"
+
+- name: Activate Anycast GW on SVI interfaces (L2VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "vlan{{ item.vlan_id }}"
+        fabric_forwarding_anycast_gateway: 'true'
+    state: merged
+  loop: "{{ L2VNI_services }}"
