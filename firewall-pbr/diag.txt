@@ -2,4 +2,4 @@
 diagnose firewall iprope show 00100004 1
 
 #check routing table
-get router info routing-table all vrf 10
+get router info routing-table all vrf <vrfid>
