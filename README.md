@@ -1,5 +1,5 @@
 BGP EVPN Lab Environment on Cisco Modeling Labs (CML) <br>
-Configuration via Ansible playbooks (YAML) based on NX-OS modules <br>
+Configuration via Ansible playbooks (YAML) based on NX-OS collection/modules <br>
 URL to NX-OS module: https://galaxy.ansible.com/ui/repo/published/cisco/nxos/ <br>
 
 --------------------------------------------------------
