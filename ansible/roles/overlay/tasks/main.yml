@@ -1,9 +1,12 @@
 ---
 - name: Configure Layer 2 (L2VNI) and Layer 3 (L3VNI) Services
-  import_tasks: vlans_and_vni.yml
+  import_tasks: vni.yml
 
 - name: Configure overlay (services) interfaces
-  import_tasks: overlay_interfaces.yml
+  import_tasks: interfaces.yml 
 
 - name: Configure BGP per VRF AFI
-  import_tasks: bgp-services.yml
+  import_tasks: bgp.yml
+
+- name: Configure PBR service chaining
+  import_tasks: pbr.yml

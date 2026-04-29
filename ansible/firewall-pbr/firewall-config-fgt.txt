@@ -1,0 +1,93 @@
+config system interface
+    edit "port1.10"
+        set vdom "root"
+        set vrf 10
+        set ip 172.17.10.2 255.255.255.248
+        set allowaccess ping
+        set vlanforward enable
+        set device-identification enable
+        set role lan
+        set snmp-index 10
+        set interface "port1"
+        set vlanid 10
+    next
+    edit "port1.20"
+        set vdom "root"
+        set vrf 20
+        set ip 172.17.20.2 255.255.255.248
+        set allowaccess ping
+        set vlanforward enable
+        set device-identification enable
+        set role lan
+        set snmp-index 11
+        set interface "port1"
+        set vlanid 20
+    next
+    edit "port1.30"
+        set vdom "root"
+        set vrf 30
+        set ip 172.17.30.2 255.255.255.248
+        set allowaccess ping
+        set vlanforward enable
+        set device-identification enable
+        set role lan
+        set snmp-index 12
+        set interface "port1"
+        set vlanid 30
+    next
+end
+
+--------------------
+
+config router static
+    edit 1
+        set gateway 172.17.10.1
+        set device "port1.10"
+        set comment "PBR-VRF-10"
+    next
+    edit 2
+        set gateway 172.17.20.1
+        set device "port1.20"
+        set comment "PBR-VRF-20"
+    next
+    edit 3
+        set gateway 172.17.30.1
+        set device "port1.30"
+        set comment "PBR-VRF-30"
+    next
+end
+
+----------------------
+
+config firewall policy
+    edit 1
+        set srcintf "port1.10"
+        set dstintf "port1.10"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+    edit 2
+        set srcintf "port1.20"
+        set dstintf "port1.20"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+    edit 3
+        set srcintf "port1.30"
+        set dstintf "port1.30"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end
