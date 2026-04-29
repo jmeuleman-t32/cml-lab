@@ -15,10 +15,11 @@ Underlay: 10.0.0.0/24 (/31) <br>
 BGP-RR: spine-1, spine-2 <br>
 BUM: via BGP ingress-replication <br>
 
-Step 1 - Import the EVPN VXLAN lab environment in Cisco CML via import lab [cisco-cml directory] <br>
-Start with enabling OOB management + NXAPI on the NX-OS switches [staging directory] in the CML lab <br>
-Step 2 - Open VS code and connect to the Dev Container on the developer machine dev.nl.transit32.local [10.160.0.22]  <br>
-Step 3 - Start with the provisioning of the underlay (transport) network via ansible-playbook -i inven.yml underlay.yml <br>
-Step 4 - Start with the provisioning of the overlay (services) network via ansible-playbook -i inven.yml overlay.yml <br>
+Step 1 - Import the EVPN VXLAN lab environment in Cisco CML by import of the YAML file in cisco-cml/cisco-cml-lab-file-nxos-evpn-fabric.yml <br>
+Step 2 - Adjust the settings where needed to connect the OOB management network (oobm-r1) to your own "physical" network environment <br>
+Step 3 - Start with enabling OOB management + NXAPI on the NX-OS switches by running inital staging config in staging directory <br>
+Step 4 - Open VS code and connect to your (Dev Container on the) developer machine to run Ansible playbooks <br>
+Step 5 - Start with the provisioning of the underlay (transport) network via ansible-playbook -i inven.yml underlay.yml <br>
+Step 6 - Start with the provisioning of the overlay (services) network via ansible-playbook -i inven.yml overlay.yml <br>
 
 JM - April 2026 - NX-OS Lab Environment
