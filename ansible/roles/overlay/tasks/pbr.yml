@@ -41,3 +41,45 @@
         enabled: true
     state: merged
   loop: "{{ PBR_services }}"
+
+- name: Configure prefix-list for PBR match criteria
+  cisco.nxos.nxos_prefix_lists:
+    config:
+      - afi: ipv4
+        prefix_lists:
+          - name: "{{ item.name }}"
+            entries:
+              - sequence: "{{item.sequence}}"
+                prefix: "{{ item.prefix }}"
+                action: permit
+    state: merged
+  loop: "{{ PBR_prefix_list }}"
+
+- name: Configure route-map for PBR match criteria
+  cisco.nxos.nxos_route_maps:
+    config:
+      - route_map: "PBR-{{ item.vlan_name }}"
+        entries:
+          - sequence: 10
+            action: permit
+            match:
+              ip:
+                address:
+                  prefix_lists:
+                    - "{{ PBR_prefix_list[0].name }}"
+            set:
+              ip:
+                next_hop:
+                  address: 172.17.{{ item.vlan_id }}.2
+    state: merged
+  loop: "{{ PBR_services }}"
+
+- name: Apply route-map to L3VNI subinterfaces
+  cisco.nxos.nxos_config:
+    lines:
+      - "ip policy route-map PBR-{{ item.vlan_name }}"
+    parents:
+      - "interface {{ L3VNI_interfaces[0].name }}.{{ item.vlan_id }}"
+    match: line
+    replace: line
+  loop: "{{ L3VNI_services }}"
