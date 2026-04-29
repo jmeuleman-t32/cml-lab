@@ -1,14 +1,21 @@
 ---
-- name: Configure VLAN-to-VNI Mappings
+- name: Configure VLAN-to-VNI Mappings (L2VNI + L3VNI Services)
   cisco.nxos.nxos_vlans:
     config:
       - name: "{{ item.vlan_name }}"
         vlan_id: "{{ item.vlan_id }}"
         mapped_vni: "{{ item.vni_id }}"
     state: merged
-  loop: "{{ L2VNI_services}}"
+  loop: "{{ L2VNI_services + L3VNI_services }}"
 
-- name: Configure L3VNI VRF(s)
+- name: Configure L2VNI VRF(s) without VNI mapping (L2VNI)
+  cisco.nxos.nxos_vrf:
+    vrf: "{{ item.vrf_name }}"
+    rd: auto
+    state: present
+  loop: "{{ L2VNI_services }}"
+
+- name: Configure L3VNI VRF(s) with VNI mapping (L3VNI)
   cisco.nxos.nxos_vrf:
     vrf: "{{ item.vrf_name }}"
     vni: "{{ item.vni_id }}"
@@ -16,11 +23,11 @@
     state: present
   loop: "{{ L3VNI_services }}"
 
-- name: Configure global Anycast MAC-address 
+- name: Configure global Anycast MAC-address (global)
   cisco.nxos.nxos_overlay_global:
     anycast_gateway_mac: aaaa.aaaa.aaaa
 
-- name: Configure VXLAN VTEP NVE Interface
+- name: Configure VXLAN VTEP NVE Interface (global)
   cisco.nxos.nxos_vxlan_vtep:
     interface: nve1
     host_reachability: true
@@ -28,7 +35,7 @@
     shutdown: false
     state: present
 
-- name: Configure L3VNI VRF(s) Address-Family
+- name: Configure RT under VRF(s) Address-Family (L2VNI + L3VNI)
   cisco.nxos.nxos_vrf_af:
     vrf: "{{ item.vrf_name }}"
     afi: ipv4
@@ -38,9 +45,9 @@
         state: present
     route_target_both_auto_evpn: true
     state: present
-  loop: "{{ L3VNI_services }}" 
+  loop: "{{ L2VNI_services + L3VNI_services }}" 
 
-- name: Configure VXLAN VTEP NVE Interface for L3VNI(s)
+- name: Configure VXLAN VTEP NVE Interface (L3VNI)
   cisco.nxos.nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
@@ -48,15 +55,15 @@
     state: present
   loop: "{{ L3VNI_services }}"
 
-- name: Configure VXLAN VTEP NVE Interface for L2VNI(s)
+- name: Configure VXLAN VTEP NVE Interface (L2VNI)
   cisco.nxos.nxos_vxlan_vtep_vni:
     interface: nve1
     vni: "{{ item.vni_id }}"
     state: present
-    multicast_group: "{{ item.mcast_grp }}"
+    ingress_replication: bgp
   loop: "{{ L2VNI_services }}"
 
-- name: Configure L2VNI Under EVPN
+- name: Configure EVPN L2VNI Under EVPN (L2VNI)
   cisco.nxos.nxos_evpn_vni:
     vni: "{{ item.vni_id }}"
     route_distinguisher: auto

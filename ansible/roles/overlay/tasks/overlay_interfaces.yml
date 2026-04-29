@@ -68,14 +68,23 @@
       - name: "vlan{{ item.vlan_id }}"
         enabled: true
     state: merged
-  loop: "{{ L2VNI_services }}"
+  loop: "{{ L2VNI_services}}"
+
+- name: Create SVI interfaces for VLANs (L3VNI Services)
+  cisco.nxos.nxos_interfaces:
+    config:
+      - name: "vlan{{ item.vlan_id }}"
+        enabled: true
+        ip_forward: true
+    state: merged
+  loop: "{{ L3VNI_services}}"
 
 - name: Assign VRF forwarding for SVI (L2VNI Services)
   cisco.nxos.nxos_vrf_interface:
     interface: "vlan{{ item.vlan_id }}"
     vrf: "{{ item.vrf_name }}"
     state: present
-  loop: "{{ L2VNI_services }}"
+  loop: "{{ L2VNI_services + L3VNI_services }}"
 
 - name: Assign IPv4 addresses for SVI (L2VNI Services)
   cisco.nxos.nxos_l3_interfaces:

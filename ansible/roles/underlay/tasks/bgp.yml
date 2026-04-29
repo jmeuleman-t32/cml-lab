@@ -31,8 +31,21 @@
           address_family:
             - afi: l2vpn
               safi: evpn
-              route_reflector_client: "{{ 'yes' if inventory_hostname in groups['leafs'] else 'no' }}"
+              route_reflector_client: "{{ 'yes' if inventory_hostname in groups['spines'] else 'no' }}"
               send_community:
                 both: yes
     state: merged
   loop: "{{ bgp.neighbors }}"
+
+- name: Deactivate Route-Target (RT) Filter on the spines
+  cisco.nxos.nxos_bgp_address_family:
+    config:
+      as_number: "{{ bgp.asn }}"
+      address_family:
+        - afi: l2vpn
+          safi: evpn
+          retain:
+            route_target:
+              retain_all: true
+    state: merged
+  when: inventory_hostname in groups['spines']

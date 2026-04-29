@@ -14,5 +14,6 @@
 - name: Configure BGP
   import_tasks: bgp.yml
 
-- name: Configure PIM
-  import_tasks: pim.yml
+# multicast disabled int this lab because I use BGP ingress replication for EVPN
+#- name: Configure PIM
+#  import_tasks: pim.yml
